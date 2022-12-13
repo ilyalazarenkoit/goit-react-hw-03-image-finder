@@ -4,7 +4,7 @@ import { Searchbar } from '../Searchbar/Searchbar';
 import { GalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Loader } from '../Loader/Loader';
 import { Error } from 'components/Error/Error';
-import api from '../services/api';
+import { getResponse } from '../services/api';
 import { toast } from 'react-toastify';
 import { LoadMore } from 'components/Button/Button';
 import PropTypes from 'prop-types';
@@ -32,10 +32,7 @@ class ImageGallery extends Component {
     ) {
       this.setState({ showLoader: true, error: null });
       try {
-        const response = await api.getResponse(
-          this.state.request,
-          this.state.page
-        );
+        const response = await getResponse(this.state.request, this.state.page);
 
         setTimeout(
           this.setState({

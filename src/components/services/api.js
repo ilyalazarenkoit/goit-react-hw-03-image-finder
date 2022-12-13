@@ -12,7 +12,3 @@ export const getResponse = async (searchQuery, page) => {
   }
   return response.data.hits;
 };
-
-export default {
-  getResponse,
-};
