@@ -4,7 +4,7 @@ import { Searchbar } from '../Searchbar/Searchbar';
 import { GalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Loader } from '../Loader/Loader';
 import { Error } from 'components/Error/Error';
-import { getResponse } from '../services/api';
+import { getResponse } from '../../services/api';
 import { toast } from 'react-toastify';
 import { LoadMore } from 'components/Button/Button';
 import PropTypes from 'prop-types';
@@ -34,12 +34,10 @@ class ImageGallery extends Component {
       try {
         const response = await getResponse(this.state.request, this.state.page);
 
-        setTimeout(
-          this.setState({
-            gallery: [...this.state.gallery, ...response],
-          }),
-          1000
-        );
+        this.setState({
+          gallery: [...this.state.gallery, ...response],
+        });
+
         if (response.length === 0) {
           throw new Error('error');
         }
@@ -58,7 +56,9 @@ class ImageGallery extends Component {
   }
 
   handleSubmit = request => {
-    this.setState({ request: request, page: 1 });
+    if (request !== this.state.request) {
+      this.setState({ request: request, page: 1 });
+    }
   };
 
   onHandleLoadMore = e => {
@@ -71,7 +71,7 @@ class ImageGallery extends Component {
     const { error, status, gallery, showLoadMore, showLoader } = this.state;
     return (
       <>
-        {<Searchbar handleSubmit={this.handleSubmit} />}
+        <Searchbar handleSubmit={this.handleSubmit} />
         {status === 'resolved' && gallery.length !== 0 ? (
           <>
             <ul className="ImageGallery">

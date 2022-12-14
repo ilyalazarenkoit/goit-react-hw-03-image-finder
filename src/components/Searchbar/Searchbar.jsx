@@ -35,7 +35,7 @@ class Searchbar extends Component {
             onChange={this.onHandleChange}
             placeholder="Search images and photos"
           />
-          <button type="sumbit" className={searchBarStyles.button}>
+          <button className={searchBarStyles.button}>
             <FaSearch />
           </button>
         </form>
